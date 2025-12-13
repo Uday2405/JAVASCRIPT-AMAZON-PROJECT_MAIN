@@ -22,7 +22,7 @@ products.forEach((product)=>{
     </div>
 
     <div class="product-price">
-      ${(product.pricecents/100).toFixed(2)}
+      ${(product.priceCents/100).toFixed(2)}
     </div>
 
     <div class="product-quantity-container">
@@ -46,8 +46,11 @@ products.forEach((product)=>{
       <img src="images/icons/checkmark.png">
       Added
     </div>
+    <p class=js-added></p>
 
-    <button class="add-to-cart-button button-primary">
+    <button class="add-to-cart-button button-primary js-addtocart"
+    data-product-id="${product.id}"
+    >
       Add to Cart
     </button>
   </div>
@@ -55,3 +58,58 @@ products.forEach((product)=>{
 })
 
 document.querySelector('.js-grid').innerHTML=productsHtml;
+document.querySelectorAll('.js-addtocart').forEach((button)=>{
+  button.addEventListener('click',()=>{
+    const productId=button.dataset.productId;
+    let matchingItem;
+    cart.forEach((product)=>{
+      if(product.productId===productId){
+        matchingItem=product;
+      }});
+      if(matchingItem){
+        matchingItem.quantity+=1;
+      }
+      else{
+        cart.push({
+        productId:productId,
+        quantity:1
+      });
+      }
+
+    let cartQuantity=0;
+    cart.forEach((item)=>{
+      cartQuantity+=item.quantity;
+    })
+    document.querySelector('.js-cartt').innerHTML=cartQuantity;
+
+    console.log(cartQuantity);
+    console.log(cart);
+
+
+   const addedTexts = document.querySelectorAll('.js-added');
+const buttons = document.querySelectorAll('.js-addtocart');
+const addedTimeouts = {};
+
+buttons.forEach((button, index) => {
+  button.addEventListener('click', () => {
+
+    // show "Added"
+    addedTexts[index].innerHTML = '✅ Added';
+    addedTexts[index].classList.add('is-added');
+
+    // hide after 2 sec
+    if (addedTimeouts[index]) {
+      clearTimeout(addedTimeouts[index]);
+    }
+
+    // ✅ start new 2 sec timeout
+    addedTimeouts[index] = setTimeout(() => {
+      addedTexts[index].innerHTML = '';
+      addedTexts[index].classList.remove('is-added');
+    }, 2000);
+  });
+});
+
+  })
+  
+});
