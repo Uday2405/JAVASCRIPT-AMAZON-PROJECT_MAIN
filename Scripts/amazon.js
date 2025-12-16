@@ -1,4 +1,5 @@
-
+import { cart} from '../data/cart.js';
+import { products } from '../data/products.js';
 let productsHtml='';
 
 products.forEach((product)=>{
@@ -56,7 +57,6 @@ products.forEach((product)=>{
   </div>
   `
 })
-
 document.querySelector('.js-grid').innerHTML=productsHtml;
 document.querySelectorAll('.js-addtocart').forEach((button)=>{
   button.addEventListener('click',()=>{
@@ -86,7 +86,7 @@ document.querySelectorAll('.js-addtocart').forEach((button)=>{
     console.log(cart);
 
 
-   const addedTexts = document.querySelectorAll('.js-added');
+const addedTexts = document.querySelectorAll('.js-added');
 const buttons = document.querySelectorAll('.js-addtocart');
 const addedTimeouts = {};
 
