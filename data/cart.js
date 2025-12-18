@@ -1,4 +1,7 @@
+import { products } from "./products.js";
+
 export const cart=[];
+
 export function addtocart(productId){
    
     let matchingItem;
